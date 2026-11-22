@@ -16,7 +16,7 @@ async function run(path: string) {
 <template>
   <div>
     <div class="section">
-      <h2>Эндпоинты досье</h2>
+      <h2>Маршруты сервиса</h2>
       <p class="hint">
         Клик по строке выполняет запрос — латентность настоящая. POST /sql-demo/run живёт в табе
         <a href="#sql">sql</a>.
@@ -27,32 +27,37 @@ async function run(path: string) {
           В MOCK-режиме ответы отдаются из мок-слоя; включи LIVE, чтобы дёргать реальный FastAPI.
         </template>
       </p>
-      <div class="tscroll">
+
+      <div class="tscroll" style="margin-top: 16px">
         <table class="ep-table">
-        <tbody>
-          <tr
-            v-for="ep in endpoints"
-            :key="ep.path"
-            :class="{ endpoint: ep.method === 'GET' }"
-            :tabindex="ep.method === 'GET' ? 0 : -1"
-            :role="ep.method === 'GET' ? 'button' : undefined"
-            @click="ep.method === 'GET' && run(ep.path)"
-            @keydown.enter="ep.method === 'GET' && run(ep.path)"
-          >
-            <td><span class="method" :class="ep.method.toLowerCase()">{{ ep.method }}</span></td>
-            <td class="mono">{{ ep.path }}</td>
-            <td class="muted">{{ ep.note }}</td>
-          </tr>
-        </tbody>
+          <tbody>
+            <tr
+              v-for="ep in endpoints"
+              :key="ep.path"
+              :class="{ endpoint: ep.method === 'GET' }"
+              :tabindex="ep.method === 'GET' ? 0 : -1"
+              :role="ep.method === 'GET' ? 'button' : undefined"
+              @click="ep.method === 'GET' && run(ep.path)"
+              @keydown.enter="ep.method === 'GET' && run(ep.path)"
+            >
+              <td><span class="method" :class="ep.method.toLowerCase()">{{ ep.method }}</span></td>
+              <td class="mono">{{ ep.path }}</td>
+              <td class="muted">{{ ep.note }}</td>
+            </tr>
+          </tbody>
         </table>
       </div>
-      <p v-if="loading" class="mono muted">… выполняется {{ loading }}</p>
-      <template v-if="result">
-        <p class="mono">
-          {{ result.path }} → {{ result.ok ? '200 OK' : 'ERROR' }} · {{ result.ms }} ms
+
+      <p v-if="loading" class="mono muted"><span class="spool" aria-hidden="true"></span>выполняется {{ loading }}</p>
+
+      <div v-if="result" class="lab-card">
+        <p class="mono" style="margin-top: 0; color: var(--ink-soft)">
+          {{ result.path }} →
+          <b :style="{ color: result.ok ? 'var(--ok)' : 'var(--mid)' }">{{ result.ok ? '200 OK' : 'ERROR' }}</b>
+          · {{ result.ms }} ms
         </p>
         <JsonView :value="result.body" />
-      </template>
+      </div>
     </div>
   </div>
 </template>

@@ -11,16 +11,16 @@ function width(ms: number): string {
 </script>
 
 <template>
-  <div v-if="props.result">
-    <span class="speedup">×{{ props.result.speedup }}</span>
+  <div v-if="props.result" style="margin-top: 16px">
+    <span class="speedup">×{{ props.result.speedup }} <small>быстрее с индексом</small></span>
     <div class="bar-row">
       <span class="bar-label">без индекса</span>
-      <div class="bar"><i class="slow" :style="{ width: width(props.result.slow.elapsed_ms) }" /></div>
+      <div class="bar"><i class="slow" :style="{ '--w': width(props.result.slow.elapsed_ms) }" /></div>
       <span class="bar-ms">{{ props.result.slow.elapsed_ms }} ms</span>
     </div>
     <div class="bar-row">
       <span class="bar-label">с индексом</span>
-      <div class="bar"><i class="fast" :style="{ width: width(props.result.fast.elapsed_ms) }" /></div>
+      <div class="bar"><i class="fast" :style="{ '--w': width(props.result.fast.elapsed_ms) }" /></div>
       <span class="bar-ms">{{ props.result.fast.elapsed_ms }} ms</span>
     </div>
 
@@ -31,18 +31,18 @@ function width(ms: number): string {
 
     <h3>Строки (первые 10)</h3>
     <div class="tscroll">
-    <table>
-      <thead>
-        <tr>
-          <th v-for="c in props.result.columns" :key="c">{{ c }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(row, i) in props.result.rows.slice(0, 10)" :key="i">
-          <td v-for="(cell, j) in row" :key="j" :class="{ num: typeof cell === 'number' }">{{ cell }}</td>
-        </tr>
-      </tbody>
-    </table>
+      <table>
+        <thead>
+          <tr>
+            <th v-for="c in props.result.columns" :key="c">{{ c }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(row, i) in props.result.rows.slice(0, 10)" :key="i">
+            <td v-for="(cell, j) in row" :key="j" :class="{ num: typeof cell === 'number' }">{{ cell }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>

@@ -29,36 +29,37 @@ async function run(queryId: string) {
         <template v-else> Сейчас MOCK: числа — симуляция около измеренных на бэкенде значений.</template>
       </p>
       <div class="tscroll">
-      <table>
-        <thead>
-          <tr>
-            <th>таблица</th>
-            <th>строк</th>
-            <th>колонки</th>
-            <th>зачем в демо</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="t in data.schema" :key="t.name">
-            <td class="mono">{{ t.name }}</td>
-            <td class="num">{{ t.row_count.toLocaleString('ru-RU') }}</td>
-            <td class="mono muted">{{ t.columns.join(', ') }}</td>
-            <td class="muted">{{ t.note }}</td>
-          </tr>
-        </tbody>
-      </table>
+        <table>
+          <thead>
+            <tr>
+              <th>таблица</th>
+              <th>строк</th>
+              <th>колонки</th>
+              <th>зачем в демо</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="t in data.schema" :key="t.name">
+              <td class="mono">{{ t.name }}</td>
+              <td class="num">{{ t.row_count.toLocaleString('ru-RU') }}</td>
+              <td class="mono muted">{{ t.columns.join(', ') }}</td>
+              <td class="muted">{{ t.note }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
     <div class="section">
-      <h2>Демо-запросы: медленный и быстрый прогоны</h2>
-      <div v-for="q in data.queries" :key="q.id" style="padding: 14px 0; border-bottom: 1px solid var(--line)">
-        <h3 style="margin-top: 0">{{ q.title }}</h3>
+      <h2>Испытания на разрыв: медленный и быстрый прогоны</h2>
+      <div v-for="q in data.queries" :key="q.id" class="lab-card">
+        <h3>{{ q.title }}</h3>
         <p style="margin-top: 0">{{ q.description }}</p>
         <CodeBlock :code="q.tsql" />
         <p class="hint">SQLite-вариант, исполняемый бэкендом: {{ q.index_name }}</p>
         <button class="btn" :disabled="running === q.id" @click="run(q.id)">
-          {{ running === q.id ? '… идёт прогон' : 'Запустить сравнение' }}
+          <span v-if="running === q.id" class="spool" aria-hidden="true"></span>
+          {{ running === q.id ? 'идёт прогон' : 'запустить сравнение' }}
         </button>
         <template v-if="result && result.query_id === q.id">
           <RunPanel :result="result" />
@@ -69,8 +70,8 @@ async function run(queryId: string) {
 
     <div class="section">
       <h2>Транзакции и уровни изоляции — на остатках склада</h2>
-      <div v-for="s in data.isolation" :key="s.anomaly" style="padding: 14px 0; border-bottom: 1px solid var(--line)">
-        <h3 style="margin-top: 0">{{ s.anomaly }}</h3>
+      <div v-for="s in data.isolation" :key="s.anomaly" class="lab-card">
+        <h3>{{ s.anomaly }}</h3>
         <p style="margin-top: 0">{{ s.note }}</p>
         <CodeBlock :code="s.tsql" />
       </div>

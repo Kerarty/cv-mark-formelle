@@ -1,14 +1,14 @@
 <script setup lang="ts">
-const { mode, liveOk, data, healthMs, toggleMode, measureHealth } = useDossier()
+const { mode, liveOk, data, healthMs, endpoints, toggleMode, measureHealth } = useDossier()
 
 const TABS = [
-  { id: 'overview', label: 'обзор' },
-  { id: 'api', label: 'api' },
-  { id: 'sql', label: 'sql' },
-  { id: 'ai', label: 'ai-конвейер' },
-  { id: 'fit', label: 'fit' },
-  { id: 'honest', label: 'честно' },
-  { id: 'contact', label: 'контакты' },
+  { id: 'overview', num: '01', label: 'обзор' },
+  { id: 'api', num: '02', label: 'api' },
+  { id: 'sql', num: '03', label: 'sql' },
+  { id: 'ai', num: '04', label: 'ai-конвейер' },
+  { id: 'fit', num: '05', label: 'fit' },
+  { id: 'honest', num: '06', label: 'честно' },
+  { id: 'contact', num: '07', label: 'контакты' },
 ] as const
 
 type TabId = (typeof TABS)[number]['id']
@@ -48,10 +48,20 @@ async function onToggleMode() {
     setTimeout(() => (liveHint.value = ''), 4000)
   }
 }
+
+/* заголовок из единственного источника: до двоеточия — дисплейная часть;
+   «full-stack» склеиваем неразрывным дефисом, чтобы не рвался на переносе */
+const heroTitle = computed(() =>
+  (data.value.candidate.headline.split(':')[0]?.trim() ?? '').replace('full-stack', 'full\u2011stack'),
+)
+const heroSub = computed(() => {
+  const parts = data.value.candidate.headline.split(':')
+  return parts.slice(1).join(':').trim()
+})
 </script>
 
 <template>
-  <div class="page">
+  <div>
     <!-- noscript: все панели открыты, табы скрыты (канон №2) -->
     <noscript>
       <style>
@@ -60,67 +70,122 @@ async function onToggleMode() {
       </style>
     </noscript>
 
-    <header class="chrome">
-      <span>cv-mark-formelle</span>
-      <button
-        class="mode"
-        :class="{ 'is-live': mode === 'live' && liveOk, 'is-fallback': mode === 'live' && !liveOk }"
-        :title="'Переключить источник: MOCK всегда работает, LIVE ходит в реальный FastAPI (' + (mode === 'mock' ? 'включить LIVE' : 'вернуть MOCK') + ')'"
-        @click="onToggleMode"
-      >
-        {{ modeLabel }}
-      </button>
-    </header>
-    <p v-if="liveHint" class="hint" style="margin-top: 6px">{{ liveHint }}</p>
+    <div class="page">
+      <header class="chrome">
+        <span class="chrome-brand">
+          <span class="chrome-mark" aria-hidden="true">cv</span>
+          <span class="chrome-path"><b>kerarty</b>/cv-mark-formelle · паспорт качества кандидата</span>
+        </span>
+        <button
+          class="mode"
+          :class="{ 'is-live': mode === 'live' && liveOk, 'is-fallback': mode === 'live' && !liveOk }"
+          :title="'Переключить источник: MOCK всегда работает, LIVE ходит в реальный FastAPI (' + (mode === 'mock' ? 'включить LIVE' : 'вернуть MOCK') + ')'"
+          @click="onToggleMode"
+        >
+          {{ modeLabel }}
+        </button>
+      </header>
+      <p v-if="liveHint" class="hint" style="margin-top: 6px">{{ liveHint }}</p>
 
-    <div class="requestline" aria-hidden="true">
-      <span class="rl-method">GET</span>
-      <span class="rl-url">/api/v1/candidate/{{ data.candidate.handle }}</span>
-      <span class="rl-result" :class="{ ok: healthMs !== null }">
-        → 200 OK<template v-if="healthMs !== null"> · {{ healthMs }} ms</template>
-      </span>
+      <section class="hero">
+        <div>
+          <p class="requestline" aria-hidden="true">
+            <span class="rl-method">GET</span>
+            <span class="rl-url">/api/v1/candidate/{{ data.candidate.handle }}</span>
+            <span class="rl-result" :class="{ ok: healthMs !== null }">
+              → 200 OK<template v-if="healthMs !== null"> · {{ healthMs }} ms</template>
+            </span>
+            <span class="rl-cursor"></span>
+          </p>
+          <h1 class="display">{{ heroTitle }}</h1>
+          <p class="display-sub">{{ heroSub }}</p>
+          <p class="hero-note">
+            Кандидат представлен как микросервис: разделы — эндпоинты, демо — испытания.
+            MOCK-режим живёт без бэкенда; LIVE ходит в настоящий FastAPI — переключатель в шапке.
+          </p>
+
+          <div class="statgrid">
+            <div><b>{{ endpoints.length }}</b><span>эндпоинтов досье</span></div>
+            <div><b>{{ data.schema.length }}</b><span>таблиц в демо-БД</span></div>
+            <div><b>{{ data.schema[2]?.row_count.toLocaleString('ru-RU') ?? '—' }}</b><span>движений по складу</span></div>
+            <div><b>{{ data.candidate.public_repos }}</b><span>репозиториев на GitHub</span></div>
+          </div>
+        </div>
+
+        <aside class="tag" aria-label="Бирка изделия: досье кандидата">
+          <span class="tag-hole" aria-hidden="true"></span>
+          <p class="tag-handle">{{ data.candidate.handle }}</p>
+          <p class="tag-role">досье-микросервис · интерактивное резюме</p>
+          <Barcode />
+          <p class="tag-made">сделано конвейером ai-ассистентов</p>
+          <p class="tag-geo">
+            <span>Минск · Беларусь</span>
+            <span>изделие №2026</span>
+          </p>
+        </aside>
+      </section>
+
+      <div class="swatches" aria-hidden="true">
+        <span>коллекция</span>
+        <i style="background: var(--yarn-sage)"></i>
+        <i style="background: var(--yarn-sky)"></i>
+        <i style="background: var(--yarn-rose)"></i>
+        <i style="background: var(--yarn-sand)"></i>
+        <i style="background: var(--yarn-melange)"></i>
+        <i style="background: var(--yarn-denim)"></i>
+      </div>
+
+      <nav class="tabs" role="tablist" aria-label="Разделы досье">
+        <button
+          v-for="t in TABS"
+          :key="t.id"
+          class="tab"
+          role="tab"
+          :aria-selected="active === t.id"
+          @click="setTab(t.id)"
+        >
+          <i aria-hidden="true">{{ t.num }}</i>{{ t.label }}
+        </button>
+      </nav>
+
+      <main>
+        <section v-show="active === 'overview'" id="overview" class="panel" role="tabpanel" aria-label="обзор">
+          <OverviewTab />
+        </section>
+        <section v-show="active === 'api'" id="api" class="panel" role="tabpanel" aria-label="api">
+          <ApiTab />
+        </section>
+        <section v-show="active === 'sql'" id="sql" class="panel" role="tabpanel" aria-label="sql">
+          <SqlTab />
+        </section>
+        <section v-show="active === 'ai'" id="ai" class="panel" role="tabpanel" aria-label="ai-конвейер">
+          <AiTab />
+        </section>
+        <section v-show="active === 'fit'" id="fit" class="panel" role="tabpanel" aria-label="fit">
+          <FitTab />
+        </section>
+        <section v-show="active === 'honest'" id="honest" class="panel" role="tabpanel" aria-label="честно">
+          <HonestTab />
+        </section>
+        <section v-show="active === 'contact'" id="contact" class="panel" role="tabpanel" aria-label="контакты">
+          <ContactTab />
+        </section>
+      </main>
     </div>
-    <p class="headline">{{ data.candidate.headline }}</p>
 
-    <nav class="tabs" role="tablist" aria-label="Разделы досье">
-      <button
-        v-for="t in TABS"
-        :key="t.id"
-        class="tab"
-        role="tab"
-        :aria-selected="active === t.id"
-        @click="setTab(t.id)"
-      >
-        {{ t.label }}
-      </button>
-    </nav>
-
-    <main>
-      <section v-show="active === 'overview'" id="overview" class="panel" role="tabpanel" aria-label="обзор">
-        <OverviewTab />
-      </section>
-      <section v-show="active === 'api'" id="api" class="panel" role="tabpanel" aria-label="api">
-        <ApiTab />
-      </section>
-      <section v-show="active === 'sql'" id="sql" class="panel" role="tabpanel" aria-label="sql">
-        <SqlTab />
-      </section>
-      <section v-show="active === 'ai'" id="ai" class="panel" role="tabpanel" aria-label="ai-конвейер">
-        <AiTab />
-      </section>
-      <section v-show="active === 'fit'" id="fit" class="panel" role="tabpanel" aria-label="fit">
-        <FitTab />
-      </section>
-      <section v-show="active === 'honest'" id="honest" class="panel" role="tabpanel" aria-label="честно">
-        <HonestTab />
-      </section>
-      <section v-show="active === 'contact'" id="contact" class="panel" role="tabpanel" aria-label="контакты">
-        <ContactTab />
-      </section>
-    </main>
-
-    <footer class="foot">
-      github.com/Kerarty · каждый числовой факт проверяем по репозиториям · собрано конвейером Claude Code
+    <footer class="footband">
+      <div class="footband-in">
+        <div>
+          <p class="big">Каждый числовой факт проверяем по <a href="https://github.com/Kerarty" target="_blank" rel="noopener">github.com/Kerarty</a></p>
+          <p class="small">
+            собрано конвейером Claude Code · FastAPI + Pydantic v2 + Nuxt 3 (SSG) · тесты HTTP-слоя в CI
+          </p>
+        </div>
+        <div>
+          <Barcode />
+          <p class="small" style="margin-top: 8px">kerarty.github.io/cv-mark-formelle</p>
+        </div>
+      </div>
     </footer>
   </div>
 </template>
