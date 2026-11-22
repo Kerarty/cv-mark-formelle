@@ -34,11 +34,6 @@ onMounted(() => {
   measureHealth()
 })
 
-async function onToggleMode() {
-  await toggleMode()
-  await measureHealth()
-}
-
 const modeLabel = computed(() =>
   mode.value === 'live' && liveOk.value ? 'LIVE' : mode.value === 'live' ? 'LIVE↓' : 'MOCK',
 )
