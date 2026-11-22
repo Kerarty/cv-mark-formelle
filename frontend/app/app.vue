@@ -112,16 +112,21 @@ const heroSub = computed(() => {
           </div>
         </div>
 
-        <aside class="tag" aria-label="Бирка изделия: досье кандидата">
-          <span class="tag-hole" aria-hidden="true"></span>
-          <p class="tag-name">{{ data.candidate.name }}</p>
-          <p class="tag-role">{{ data.candidate.handle }} · досье-микросервис · интерактивное резюме</p>
-          <Barcode />
-          <p class="tag-made">сделано конвейером ai-ассистентов</p>
-          <p class="tag-geo">
-            <span>Минск · Беларусь</span>
-            <span>изделие №2026</span>
-          </p>
+        <aside class="hero-side">
+          <div class="tag" aria-label="Бирка изделия: досье кандидата">
+            <span class="tag-hole" aria-hidden="true"></span>
+            <p class="tag-name">{{ data.candidate.name }}</p>
+            <p class="tag-role">досье-микросервис · интерактивное резюме</p>
+            <Barcode />
+            <p class="tag-made">сделано конвейером ai-ассистентов</p>
+            <p class="tag-geo">
+              <span>Минск · Беларусь</span>
+              <span>изделие №2026</span>
+            </p>
+          </div>
+          <a class="tag-btn" href="resume.pdf" download="kukar-yaroslav-cv.pdf">
+            скачать pdf-резюме ↓
+          </a>
         </aside>
       </section>
 

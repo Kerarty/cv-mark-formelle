@@ -334,6 +334,39 @@ a:hover {
 
 /* бирка изделия — визитная карточка кандидата */
 
+.hero-side {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tag-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 12px 18px;
+  border: 1px dashed var(--denim);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--denim-deep);
+  text-decoration: none;
+  box-shadow: var(--shadow);
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.tag-btn:hover {
+  border-style: solid;
+  background: var(--paper-soft);
+}
+
+.tag-btn:active {
+  transform: translateY(1px);
+}
+
 .tag {
   background: var(--paper);
   border: 1px solid var(--line);
@@ -1264,7 +1297,7 @@ td.num {
     padding-top: 26px;
   }
 
-  .tag {
+  .hero-side {
     max-width: 340px;
   }
 }
@@ -1328,6 +1361,7 @@ td.num {
   .hint,
   .swatches,
   .conveyor,
+  .tag-btn,
   .rl-cursor,
   .footband .tag-code {
     display: none !important;
