@@ -17,6 +17,8 @@ def test_candidate_returns_dossier(client):
     assert body["handle"] == "Kerarty"
     assert body["contacts"]["github"].startswith("https://github.com/Kerarty")
     assert isinstance(body["headline"], str) and len(body["headline"]) > 0
+    # публичные репозитории — проверяемое число с api.github.com/users/Kerarty
+    assert isinstance(body["public_repos"], int) and body["public_repos"] >= 30
     assert body["vacancy"]["company"] == "Марк Формэль"
     assert body["vacancy"]["rabota_id"] == 139486046
 

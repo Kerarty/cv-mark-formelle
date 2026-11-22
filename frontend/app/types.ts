@@ -10,6 +10,7 @@ export interface Candidate {
   handle: string
   headline: string
   summary: string
+  public_repos: number
   contacts: { github: string; telegram: string | null; email: string | null }
   vacancy: { company: string; title: string; rabota_id: number; url: string }
 }

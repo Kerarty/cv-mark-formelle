@@ -26,6 +26,7 @@ class Candidate(BaseModel):
     handle: str
     headline: str
     summary: str
+    public_repos: int
     contacts: Contacts
     vacancy: Vacancy
 
