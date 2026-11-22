@@ -118,6 +118,3 @@ docker compose up
 **Telegram:** [t.me/Kerarty](https://t.me/Kerarty) ·
 **Email:** kukar.yar@gmail.com ·
 **Телефон:** +375 44 783-84-89
-
-Запись на собеседование — через Telegram-бот компании:
-[t.me/recruit_markformelle_bot](https://t.me/recruit_markformelle_bot)
