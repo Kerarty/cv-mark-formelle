@@ -320,7 +320,11 @@ p {
   margin: 6px 0;
 }
 
-/* таблицы */
+/* таблицы: на узких экранах скроллятся внутри обёртки, не ломая страницу */
+.tscroll {
+  overflow-x: auto;
+}
+
 table {
   border-collapse: collapse;
   width: 100%;

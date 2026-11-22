@@ -28,6 +28,7 @@ async function run(queryId: string) {
         <template v-if="mode === 'live'"> Сейчас LIVE: прогоны считаются на настоящем бэкенде.</template>
         <template v-else> Сейчас MOCK: числа — симуляция около измеренных на бэкенде значений.</template>
       </p>
+      <div class="tscroll">
       <table>
         <thead>
           <tr>
@@ -46,6 +47,7 @@ async function run(queryId: string) {
           </tr>
         </tbody>
       </table>
+      </div>
     </div>
 
     <div class="section">

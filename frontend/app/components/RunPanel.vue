@@ -30,6 +30,7 @@ function width(ms: number): string {
     <pre class="planbox">{{ props.result.fast.plan }}</pre>
 
     <h3>Строки (первые 10)</h3>
+    <div class="tscroll">
     <table>
       <thead>
         <tr>
@@ -42,5 +43,6 @@ function width(ms: number): string {
         </tr>
       </tbody>
     </table>
+    </div>
   </div>
 </template>

@@ -27,7 +27,8 @@ async function run(path: string) {
           В MOCK-режиме ответы отдаются из мок-слоя; включи LIVE, чтобы дёргать реальный FastAPI.
         </template>
       </p>
-      <table class="ep-table">
+      <div class="tscroll">
+        <table class="ep-table">
         <tbody>
           <tr
             v-for="ep in endpoints"
@@ -43,7 +44,8 @@ async function run(path: string) {
             <td class="muted">{{ ep.note }}</td>
           </tr>
         </tbody>
-      </table>
+        </table>
+      </div>
       <p v-if="loading" class="mono muted">… выполняется {{ loading }}</p>
       <template v-if="result">
         <p class="mono">
