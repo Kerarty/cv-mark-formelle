@@ -25,10 +25,6 @@ const phoneView = computed(() => {
           <a :href="'mailto:' + data.candidate.contacts.email"><b>email</b>{{ data.candidate.contacts.email }}</a>
           <a :href="'tel:' + data.candidate.contacts.phone"><b>phone</b>{{ phoneView }}</a>
         </div>
-        <p class="hint" style="margin-bottom: 0">
-          Запись на собеседование у компании — через Telegram-бот:
-          <a href="https://t.me/recruit_markformelle_bot" target="_blank" rel="noopener">t.me/recruit_markformelle_bot</a>
-        </p>
       </div>
     </div>
   </div>
