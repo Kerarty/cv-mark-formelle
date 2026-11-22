@@ -8,7 +8,6 @@ const TABS = [
   { id: 'ai', label: 'ai-конвейер' },
   { id: 'fit', label: 'fit' },
   { id: 'honest', label: 'честно' },
-  { id: 'plan', label: '30-60-90' },
   { id: 'contact', label: 'контакты' },
 ] as const
 
@@ -114,9 +113,6 @@ async function onToggleMode() {
       </section>
       <section v-show="active === 'honest'" id="honest" class="panel" role="tabpanel" aria-label="честно">
         <HonestTab />
-      </section>
-      <section v-show="active === 'plan'" id="plan" class="panel" role="tabpanel" aria-label="30-60-90">
-        <PlanTab />
       </section>
       <section v-show="active === 'contact'" id="contact" class="panel" role="tabpanel" aria-label="контакты">
         <ContactTab />
