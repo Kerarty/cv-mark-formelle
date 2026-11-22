@@ -21,9 +21,14 @@ async function copy() {
   <div>
     <div class="section">
       <h2>Контакты</h2>
+      <p class="hint">Те же, что в моих резюме на GitHub (cv-zhuk, cv-winwox, cv-saber) — ничего лишнего:</p>
       <p>
-        Все контакты — как в профиле GitHub:
+        GitHub:
         <a :href="data.candidate.contacts.github" target="_blank" rel="noopener">github.com/Kerarty</a>
+        · Telegram:
+        <a :href="data.candidate.contacts.telegram" target="_blank" rel="noopener">t.me/Kerarty</a>
+        · Email:
+        <a :href="'mailto:' + data.candidate.contacts.email">{{ data.candidate.contacts.email }}</a>
       </p>
       <p class="hint">
         Запись на собеседование у компании — через Telegram-бот:

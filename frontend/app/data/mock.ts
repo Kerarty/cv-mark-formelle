@@ -11,8 +11,8 @@ const candidate = {
     'Университетский Python + self-study. Собираю рабочие продукты конвейером AI-ассистентов: от SDK playable-рекламы до этого досье, которое отвечает REST-эндпоинтами. Вакансия просит FastAPI, Nuxt и SQL — все три здесь, в бою.',
   contacts: {
     github: 'https://github.com/Kerarty',
-    telegram: null,
-    email: null,
+    telegram: 'https://t.me/Kerarty',
+    email: 'kukar.yar@gmail.com',
   },
   vacancy: {
     company: 'Марк Формэль',

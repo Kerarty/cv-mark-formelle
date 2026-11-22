@@ -14,8 +14,8 @@ CANDIDATE = {
     ),
     "contacts": {
         "github": "https://github.com/Kerarty",
-        "telegram": None,
-        "email": None,
+        "telegram": "https://t.me/Kerarty",
+        "email": "kukar.yar@gmail.com",
     },
     "vacancy": {
         "company": "Марк Формэль",
