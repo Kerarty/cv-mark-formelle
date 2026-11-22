@@ -1,11 +1,11 @@
 """Кандидат — единственный источник контента резюме (канон №5 из AGENTS.md).
 
 Все числовые факты проверяемы по github.com/Kerarty.
-Значения ``None`` в контактах — заполняются перед финальным деплоем.
 """
 
 CANDIDATE = {
     "handle": "Kerarty",
+    "name": "Кукар Ярослав Михайлович",
     "headline": "Python-разработчик (full-stack): резюме, которое само работает на FastAPI + Nuxt",
     "summary": (
         "Университетский Python + self-study. Собираю рабочие продукты конвейером "
@@ -18,6 +18,7 @@ CANDIDATE = {
         "github": "https://github.com/Kerarty",
         "telegram": "https://t.me/Kerarty",
         "email": "kukar.yar@gmail.com",
+        "phone": "+375447838489",
     },
     "vacancy": {
         "company": "Марк Формэль",

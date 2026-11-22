@@ -6,6 +6,7 @@ const health = { status: 'ok', service: 'cv-mark-formelle', version: '0.1.0' }
 
 const candidate = {
   handle: 'Kerarty',
+  name: 'Кукар Ярослав Михайлович',
   headline: 'Python-разработчик (full-stack): резюме, которое само работает на FastAPI + Nuxt',
   summary:
     'Университетский Python + self-study. Собираю рабочие продукты конвейером AI-ассистентов: от SDK playable-рекламы до этого досье, которое отвечает REST-эндпоинтами. Вакансия просит FastAPI, Nuxt и SQL — все три здесь, в бою.',
@@ -15,6 +16,7 @@ const candidate = {
     github: 'https://github.com/Kerarty',
     telegram: 'https://t.me/Kerarty',
     email: 'kukar.yar@gmail.com',
+    phone: '+375447838489',
   },
   vacancy: {
     company: 'Марк Формэль',

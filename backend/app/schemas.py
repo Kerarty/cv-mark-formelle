@@ -20,10 +20,12 @@ class Contacts(BaseModel):
     github: str
     telegram: str | None = None
     email: str | None = None
+    phone: str | None = None
 
 
 class Candidate(BaseModel):
     handle: str
+    name: str
     headline: str
     summary: str
     public_repos: int

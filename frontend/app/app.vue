@@ -114,8 +114,8 @@ const heroSub = computed(() => {
 
         <aside class="tag" aria-label="Бирка изделия: досье кандидата">
           <span class="tag-hole" aria-hidden="true"></span>
-          <p class="tag-handle">{{ data.candidate.handle }}</p>
-          <p class="tag-role">досье-микросервис · интерактивное резюме</p>
+          <p class="tag-name">{{ data.candidate.name }}</p>
+          <p class="tag-role">{{ data.candidate.handle }} · досье-микросервис · интерактивное резюме</p>
           <Barcode />
           <p class="tag-made">сделано конвейером ai-ассистентов</p>
           <p class="tag-geo">
