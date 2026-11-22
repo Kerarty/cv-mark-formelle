@@ -24,6 +24,8 @@ def create_app() -> FastAPI:
     app.add_middleware(
         CORSMiddleware,
         allow_origins=ALLOWED_ORIGINS,
+        # локальная проверка LIVE-режима с любого dev-порта (3000, 8077, ...)
+        allow_origin_regex=r"http://(localhost|127\.0\.0\.1):\d+",
         allow_methods=["GET", "POST"],
         allow_headers=["*"],
     )

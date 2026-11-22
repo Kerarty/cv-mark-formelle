@@ -63,7 +63,7 @@ class DemoQuery:
 DEMO_QUERIES: dict[str, DemoQuery] = {
     "stock-report": DemoQuery(
         id="stock-report",
-        title="Отчёт по отгрузкам за половину месяца",
+        title="Отчёт по отгрузкам за 3 дня",
         description=(
             "Классика товародвижения: агрегат по витрине-остаткам за период. "
             "Без индекса — полный скан 200 000 движений; составной индекс "

@@ -1,0 +1,495 @@
+/* cv-mark-formelle — «лён + джинса»: текстильная база, инженерная типографика.
+   Один акцент (индиго) только для действий; статусы — ✓ / ◐ / ○. */
+
+:root {
+  --linen: #f3f1ec;
+  --paper: #fbfaf7;
+  --ink: #232629;
+  --ink-soft: #5c6066;
+  --line: #d9d5cc;
+  --indigo: #3557a0;
+  --indigo-deep: #27417a;
+  --ok: #2f7d46;
+  --mid: #b07e12;
+  --todo: #8a8f98;
+  --terminal: #14171b;
+  --terminal-ink: #c9d1d9;
+  --mono: ui-monospace, 'Cascadia Code', 'JetBrains Mono', Consolas, 'Courier New', monospace;
+  --sans: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--linen);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.page {
+  max-width: 72ch;
+  margin: 0 auto;
+  padding: 20px 20px 56px;
+}
+
+a {
+  color: var(--indigo);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--indigo-deep);
+}
+
+:focus-visible {
+  outline: 2px solid var(--indigo);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ── Шапка: сервисная строка + request-line ─────────────────────────── */
+
+.chrome {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-soft);
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+}
+
+.mode {
+  font-family: var(--mono);
+  font-size: 12px;
+  padding: 3px 10px;
+  border: 1px solid var(--ink-soft);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.mode.is-live {
+  border-color: var(--ok);
+  color: var(--ok);
+}
+
+.mode.is-fallback {
+  border-color: var(--mid);
+  color: var(--mid);
+}
+
+.requestline {
+  font-family: var(--mono);
+  font-size: clamp(15px, 2.4vw, 19px);
+  padding: 26px 0 4px;
+  word-break: break-all;
+}
+
+.rl-method {
+  color: var(--indigo);
+  font-weight: 700;
+  margin-right: 8px;
+}
+
+.rl-url {
+  color: var(--ink);
+}
+
+.rl-result {
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.rl-result.ok {
+  color: var(--ok);
+}
+
+.headline {
+  margin: 4px 0 0;
+  font-size: 17px;
+  color: var(--ink);
+  max-width: 60ch;
+}
+
+/* ── Табы ────────────────────────────────────────────────────────────── */
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 14px;
+  margin-top: 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+.tab {
+  appearance: none;
+  border: 0;
+  background: none;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink-soft);
+  padding: 8px 2px 9px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+
+.tab:hover {
+  color: var(--ink);
+}
+
+.tab[aria-selected='true'] {
+  color: var(--indigo);
+  border-bottom-color: var(--indigo);
+}
+
+/* ── Панели ──────────────────────────────────────────────────────────── */
+
+.panel {
+  padding-top: 10px;
+}
+
+.section {
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.section:last-child {
+  border-bottom: 0;
+}
+
+h2 {
+  font-size: 16px;
+  font-weight: 650;
+  margin: 0 0 10px;
+}
+
+h3 {
+  font-size: 14.5px;
+  font-weight: 650;
+  margin: 18px 0 6px;
+}
+
+p {
+  margin: 8px 0;
+  max-width: 68ch;
+}
+
+.muted {
+  color: var(--ink-soft);
+}
+
+.mono {
+  font-family: var(--mono);
+  font-size: 0.92em;
+}
+
+/* метрическая полоса */
+.statrow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 22px;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin: 10px 0 4px;
+}
+
+.statrow b {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* лог опыта */
+.log {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.log li {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.log li:last-child {
+  border-bottom: 0;
+}
+
+.log .period {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--ink-soft);
+}
+
+.log .title {
+  font-weight: 650;
+  margin: 2px 0 4px;
+}
+
+/* статусы ✓◐○ */
+.badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1;
+  padding: 4px 9px;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  white-space: nowrap;
+}
+
+.badge.full {
+  color: var(--ok);
+}
+
+.badge.partial {
+  color: var(--mid);
+}
+
+.badge.plan {
+  color: var(--todo);
+}
+
+.fit-item {
+  display: grid;
+  grid-template-columns: minmax(64px, auto) 1fr;
+  gap: 4px 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.fit-item:last-child {
+  border-bottom: 0;
+}
+
+.fit-item .req {
+  font-weight: 650;
+  margin-bottom: 4px;
+}
+
+/* код */
+.code {
+  background: var(--terminal);
+  color: var(--terminal-ink);
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 12px 14px;
+  overflow-x: auto;
+  white-space: pre;
+  margin: 8px 0;
+}
+
+.code .tk-k {
+  color: #7aa7e8;
+}
+
+.code .tk-s {
+  color: #9ece8f;
+}
+
+.code .tk-c {
+  color: #6e7681;
+  font-style: italic;
+}
+
+.planbox {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-soft);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 8px 10px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  margin: 6px 0;
+}
+
+/* таблицы */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+th {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+td.num {
+  font-family: var(--mono);
+  white-space: nowrap;
+}
+
+/* бары медленного/быстрого прогона */
+.bar-row {
+  display: grid;
+  grid-template-columns: 84px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  margin: 8px 0;
+}
+
+.bar-label {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--ink-soft);
+}
+
+.bar {
+  height: 10px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.bar i {
+  display: block;
+  height: 100%;
+}
+
+.bar i.slow {
+  background: var(--todo);
+}
+
+.bar i.fast {
+  background: var(--ok);
+}
+
+.bar-ms {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  white-space: nowrap;
+}
+
+.speedup {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--paper);
+  background: var(--ok);
+  border-radius: 4px;
+  padding: 3px 9px;
+  margin: 6px 0;
+}
+
+/* кнопки и действия */
+.btn {
+  appearance: none;
+  font-family: var(--mono);
+  font-size: 13px;
+  padding: 7px 14px;
+  border: 0;
+  border-radius: 4px;
+  background: var(--indigo);
+  color: var(--paper);
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: var(--indigo-deep);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.ep-table td:first-child {
+  width: 56px;
+}
+
+.method {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 3px;
+}
+
+.method.get {
+  color: var(--indigo);
+  border: 1px solid var(--indigo);
+}
+
+.method.post {
+  color: var(--paper);
+  background: var(--indigo);
+}
+
+.endpoint {
+  cursor: pointer;
+}
+
+.endpoint:hover td {
+  background: var(--paper);
+}
+
+.foot {
+  margin-top: 26px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+/* переключатель LIVE/MOCK */
+.hint {
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+@media print {
+  .chrome,
+  .tabs,
+  .btn,
+  .hint {
+    display: none !important;
+  }
+
+  .panel {
+    display: block !important;
+  }
+
+  body {
+    background: #fff;
+  }
+}
