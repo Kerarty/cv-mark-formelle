@@ -1,6 +1,7 @@
 <!doctype html>
 <!-- Печатная версия резюме (A4) → headless Chromium --print-to-pdf → public/resume.pdf.
-     Все факты — из backend/app/content.py (канон №5). -->
+     Все факты — из backend/app/content.py (канон №5).
+     Фото: паспортный портрет из резюме-проекта cv-razum (assets/photo.png, github.com/Kerarty). -->
 <html lang="ru">
 <head>
   <meta charset="utf-8" />
@@ -101,6 +102,22 @@
     .cv-contacts b {
       color: var(--ink);
       font-weight: 500;
+    }
+
+    .cv-photo {
+      flex: none;
+      align-self: flex-start;
+    }
+
+    .cv-photo img {
+      display: block;
+      width: 26mm;
+      height: 26mm;
+      object-fit: cover;
+      border: 1pt solid var(--line);
+      outline: 1pt dashed var(--stitch);
+      outline-offset: 2.5pt;
+      border-radius: 3pt;
     }
 
     /* ── секции ── */
@@ -280,6 +297,9 @@
       <h1 class="cv-name">Кукар Ярослав Михайлович</h1>
       <p class="cv-role">Python-разработчик (full-stack)</p>
       <p class="cv-tagline">досье-микросервис: kerarty.github.io/cv-mark-formelle</p>
+    </div>
+    <div class="cv-photo">
+      <img src="resume-photo.png" alt="Фотография кандидата" />
     </div>
     <div class="cv-contacts">
       <b>GitHub</b> github.com/Kerarty<br />
